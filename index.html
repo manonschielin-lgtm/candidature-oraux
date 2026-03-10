@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidature Oraux CPGE - ESIEE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --esiee-blue: #002b5c;
+            --esiee-yellow: #ffcc00;
+            --light-gray: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--light-gray);
+            color: var(--esiee-blue);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--esiee-blue);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+
+        .container { max-width: 900px; margin: auto; padding: 2rem; }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        /* Effet Yin-Yang pour Qualités/Défauts */
+        .yinyang-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .side {
+            flex: 1;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        .yin { background: var(--esiee-blue); color: white; }
+        .yang { background: var(--esiee-yellow); color: var(--esiee-blue); }
+
+        .btn {
+            display: inline-block;
+            background: var(--esiee-yellow);
+            color: var(--esiee-blue);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .puzzle-piece {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #message-ami {
+            font-style: italic;
+            border-left: 4px solid var(--esiee-yellow);
+            padding-left: 1rem;
+            display: none; /* Caché par défaut */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>[TON PRÉNOM] [TON NOM]</h1>
+    <p>Candidat pour l'équipe des Oraux CPGE 2026</p>
+    <p>📞 06 XX XX XX XX</p>
+</header>
+
+<div class="container">
+    
+    <section class="card">
+        <div class="puzzle-piece">🧩</div>
+        <h2>Ma Motivation</h2>
+        <p>Inspiré par l'esprit "Haut en Couleur", je souhaite m'approprier le dispositif pour créer du lien avec les futurs étudiants. Comme mentionné dans le projet, je veux transformer les oraux en un véritable moment d'appartenance à la communauté ESIEE.</p>
+    </section>
+
+    <section class="card">
+        <h2>L'œil du meilleur ami</h2>
+        <p>J'ai demandé à mon ami de me décrire en toute honnêteté...</p>
+        <button class="btn" onclick="revealMessage()">Voir son message</button>
+        <div id="message-ami">
+            <p>"[Ton Prénom] est quelqu'un de super <strong>bienveillant</strong> (côté Yin), mais il peut être <strong>trop perfectionniste</strong> quand il s'agit de finir un projet (côté Yang) !"</p>
+        </div>
+        
+        <div class="yinyang-container">
+            <div class="side yin">
+                <h3>Qualités</h3>
+                <ul>
+                    <li>Empathie</li>
+                    <li>Esprit d'équipe</li>
+                    <li>Énergie communicative</li>
+                </ul>
+            </div>
+            <div class="side yang">
+                <h3>Défauts</h3>
+                <ul>
+                    <li>Perfectionnisme</li>
+                    <li>Parle beaucoup (passionné !)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="card" style="text-align: center;">
+        <h2>Prêt pour l'aventure ?</h2>
+        <p>Disponible pour les auditions du jeudi 19 mars.</p>
+        <a href="mailto:jean-marc.pointet@esiee.fr" class="btn">Envoyer ma candidature par Mail</a>
+    </section>
+
+</div>
+
+<script>
+    function revealMessage() {
+        document.getElementById('message-ami').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
