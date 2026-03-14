@@ -3,138 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidature Oraux CPGE - ESIEE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Candidature Oraux - Manon SCHIELIN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --esiee-blue: #002b5c;
-            --esiee-yellow: #ffcc00;
-            --light-gray: #f4f4f4;
+            --gradient-pink: linear-gradient(135deg, #FF598A, #FF8A9C);
+            --gradient-blue: linear-gradient(135deg, #64AEF2, #95D7FA);
+            --gradient-orange: linear-gradient(135deg, #FF974F, #FEBD61);
+            --gradient-purple: linear-gradient(135deg, #8D95FF, #9CBBF7);
+            --gradient-green: linear-gradient(135deg, #6BD995, #8FECC2);
+            --dark-blue: #002b5c;
+            --soft-white: #f8f9fa;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: var(--light-gray);
-            color: var(--esiee-blue);
-            line-height: 1.6;
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-color: var(--soft-white);
+            background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        header {
-            background: var(--esiee-blue);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-        }
-
-        .container { max-width: 900px; margin: auto; padding: 2rem; }
-
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-            transition: transform 0.3s;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        /* Effet Yin-Yang pour Qualités/Défauts */
-        .yinyang-container {
+        .slider {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .side {
-            flex: 1;
-            padding: 1.5rem;
-            border-radius: 10px;
-        }
-        .yin { background: var(--esiee-blue); color: white; }
-        .yang { background: var(--esiee-yellow); color: var(--esiee-blue); }
-
-        .btn {
-            display: inline-block;
-            background: var(--esiee-yellow);
-            color: var(--esiee-blue);
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-top: 1rem;
+            width: 400%;
+            height: 100vh;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .puzzle-piece {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        section {
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            position: relative; padding: 40px; box-sizing: border-box;
         }
 
-        #message-ami {
-            font-style: italic;
-            border-left: 4px solid var(--esiee-yellow);
-            padding-left: 1rem;
-            display: none; /* Caché par défaut */
+        /* Correction : On empêche les formes de bloquer les clics */
+        .shape { 
+            position: absolute; 
+            border-radius: 50%; 
+            z-index: 0; 
+            opacity: 0.6; 
+            pointer-events: none; 
         }
+        .shape-1 { width: 300px; height: 300px; background: var(--gradient-blue); top: -100px; right: -50px; }
+        .shape-2 { width: 150px; height: 150px; background: var(--gradient-pink); bottom: 50px; left: -30px; border-radius: 20px; transform: rotate(15deg); }
+
+        .profile-pic {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            object-fit: cover;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        h1, h2, p, .cards-grid, .btn-next { z-index: 2; position: relative; }
+
+        h1 { font-size: 3.5rem; font-weight: 700; margin: 0; color: var(--dark-blue); letter-spacing: -2px; text-align: center; }
+        h2 { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 25px; }
+        p { font-size: 1.2rem; max-width: 750px; color: #444; line-height: 1.6; text-align: center; }
+
+        .btn-next {
+            background: var(--dark-blue); color: white;
+            border: none; padding: 18px 40px; border-radius: 12px;
+            font-weight: 600; cursor: pointer; margin-top: 40px;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(0,43,92,0.2);
+        }
+        .btn-next:hover { transform: translateY(-3px); background: #003d82; }
+
+        .cards-grid { display: flex; gap: 30px; margin-top: 40px; }
+        .card { width: 280px; height: 220px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card.is-flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border-radius: 24px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; box-sizing: border-box; text-align: center;
+        }
+        .card-front { background: white; border: 1px solid #eee; color: var(--dark-blue); font-size: 1.4rem; font-weight: 600; }
+        .card-back { transform: rotateY(180deg); color: white; font-size: 1.2rem; font-weight: 500; }
+
+        .nav-dots {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 15px; z-index: 100;
+        }
+        .dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; }
+        .dot.active { width: 24px; background: var(--dark-blue); border-radius: 10px; transition: 0.3s; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>[TON PRÉNOM] [TON NOM]</h1>
-    <p>Candidat pour l'équipe des Oraux CPGE 2026</p>
-    <p>📞 06 XX XX XX XX</p>
-</header>
+    <div class="nav-dots">
+        <div id="dot0" class="dot active"></div>
+        <div id="dot1" class="dot"></div>
+        <div id="dot2" class="dot"></div>
+        <div id="dot3" class="dot"></div>
+    </div>
 
-<div class="container">
-    
-    <section class="card">
-        <div class="puzzle-piece">🧩</div>
-        <h2>Ma Motivation</h2>
-        <p>Inspiré par l'esprit "Haut en Couleur", je souhaite m'approprier le dispositif pour créer du lien avec les futurs étudiants. Comme mentionné dans le projet, je veux transformer les oraux en un véritable moment d'appartenance à la communauté ESIEE.</p>
-    </section>
-
-    <section class="card">
-        <h2>L'œil du meilleur ami</h2>
-        <p>J'ai demandé à mon ami de me décrire en toute honnêteté...</p>
-        <button class="btn" onclick="revealMessage()">Voir son message</button>
-        <div id="message-ami">
-            <p>"[Ton Prénom] est quelqu'un de super <strong>bienveillant</strong> (côté Yin), mais il peut être <strong>trop perfectionniste</strong> quand il s'agit de finir un projet (côté Yang) !"</p>
-        </div>
+    <div class="slider" id="mainSlider">
         
-        <div class="yinyang-container">
-            <div class="side yin">
-                <h3>Qualités</h3>
-                <ul>
-                    <li>Empathie</li>
-                    <li>Esprit d'équipe</li>
-                    <li>Énergie communicative</li>
-                </ul>
+        <!-- PAGE 1 : INTRODUCTION -->
+        <section>
+            <div class="shape shape-1"></div>
+            <img src="photo1.jpg" alt="Manon" class="profile-pic">
+            <h1>Manon SCHIELIN</h1>
+            <p style="font-weight: 500; margin-top: 20px;">Déterminée à m’investir pleinement dans ce projet !</p>
+            <button class="btn-next" onclick="nextSlide(1)">Explorer mon profil</button>
+        </section>
+
+        <!-- PAGE 2 : ESPRIT E3S -->
+        <section>
+            <div class="shape shape-2" style="background: var(--gradient-purple); top: 10%; right: 10%;"></div>
+            <h2>Esprit E3S</h2>
+            <p>
+                Ayant choisi l'ESIEE en grande partie grâce à l'esprit unique de ces oraux et j’ai aimé ce mix de <b>'fun et décontracté'</b> quand j'étais candidate, je suis aujourd'hui partante pour transmettre cette même énergie aux futurs arrivants.
+            </p>
+            <button class="btn-next" onclick="nextSlide(2)">Qualités & Défauts</button>
+        </section>
+
+        <!-- PAGE 3 : QUALITÉS & DÉFAUTS -->
+        <section>
+            <h2>Ce que mon entourage dit de moi</h2>
+            <p style="font-size: 1rem; margin-bottom: 20px;">(Cliquez sur les cartes)</p>
+            
+            <div class="cards-grid">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-front" style="border-bottom: 6px solid #6BD995;">Mes qualités</div>
+                        <div class="card-back" style="background: var(--gradient-green);">
+                            <p style="color: white; margin: 0; font-size: 1.3rem; line-height: 1.8;">
+                                - à l’écoute<br>- gère le stress<br>– manuelle
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-front" style="border-bottom: 6px solid #FF974F;">Mes défauts</div>
+                        <div class="card-back" style="background: var(--gradient-orange);">
+                            <p style="color: white; margin: 0; font-size: 1.3rem; line-height: 1.8;">
+                                - prudente<br>– perfectionniste<br>– indécise
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="side yang">
-                <h3>Défauts</h3>
-                <ul>
-                    <li>Perfectionnisme</li>
-                    <li>Parle beaucoup (passionné !)</li>
-                </ul>
+            <button class="btn-next" onclick="nextSlide(3)">Me contacter</button>
+        </section>
+
+        <!-- PAGE 4 : CONTACT -->
+        <section>
+            <div class="shape" style="width: 400px; height: 400px; background: var(--gradient-blue); bottom: -200px; right: -100px; opacity: 0.3;"></div>
+            
+            <img src="photo2.jpg" alt="Manon Peluche" class="profile-pic" style="width: 180px; height: 180px;">
+
+            <h1>Manon SCHIELIN</h1>
+            
+            <div style="margin-top: 35px; text-align: center;">
+                <div style="background: white; padding: 30px 60px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.06);">
+                    <p style="font-weight: 700; color: var(--dark-blue); margin: 0; font-size: 1.8rem; letter-spacing: 1px;">06 XX XX XX XX</p>
+                    <p style="font-size: 1.1rem; margin-top: 10px; color: #666; font-weight: 500;">Motivée pour les auditions du 19 mars</p>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section class="card" style="text-align: center;">
-        <h2>Prêt pour l'aventure ?</h2>
-        <p>Disponible pour les auditions du jeudi 19 mars.</p>
-        <a href="mailto:jean-marc.pointet@esiee.fr" class="btn">Envoyer ma candidature par Mail</a>
-    </section>
+            <button class="btn-next" onclick="nextSlide(0)" style="background: transparent; border: 2px solid var(--dark-blue); color: var(--dark-blue); margin-top: 40px;">Revoir la présentation</button>
+        </section>
 
-</div>
+    </div>
 
-<script>
-    function revealMessage() {
-        document.getElementById('message-ami').style.display = 'block';
-    }
-</script>
-
+    <script>
+        function nextSlide(index) {
+            // Déplacement du slider
+            const slider = document.getElementById('mainSlider');
+            slider.style.transform = 'translateX(-' + (index * 100) + 'vw)';
+            
+            // Mise à jour des points de navigation
+            document.querySelectorAll('.dot').forEach(function(dot) {
+                dot.classList.remove('active');
+            });
+            document.getElementById('dot' + index).classList.add('active');
+        }
+    </script>
 </body>
 </html>
