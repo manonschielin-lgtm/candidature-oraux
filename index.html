@@ -39,7 +39,7 @@
             position: relative; padding: 40px; box-sizing: border-box;
         }
 
-        /* Correction : On empêche les formes de bloquer les clics */
+        /* Bloque les interactions avec les cercles de couleur pour laisser passer les clics */
         .shape { 
             position: absolute; 
             border-radius: 50%; 
@@ -60,6 +60,7 @@
             margin-bottom: 20px;
         }
 
+        /* Force les éléments interactifs au-dessus */
         h1, h2, p, .cards-grid, .btn-next { z-index: 2; position: relative; }
 
         h1 { font-size: 3.5rem; font-weight: 700; margin: 0; color: var(--dark-blue); letter-spacing: -2px; text-align: center; }
@@ -109,7 +110,7 @@
         <!-- PAGE 1 : INTRODUCTION -->
         <section>
             <div class="shape shape-1"></div>
-            <img src="photo1.jpg" alt="Manon" class="profile-pic">
+            <img src="photo1.jpeg" alt="Manon Rose" class="profile-pic">
             <h1>Manon SCHIELIN</h1>
             <p style="font-weight: 500; margin-top: 20px;">Déterminée à m’investir pleinement dans ce projet !</p>
             <button class="btn-next" onclick="nextSlide(1)">Explorer mon profil</button>
@@ -131,6 +132,7 @@
             <p style="font-size: 1rem; margin-bottom: 20px;">(Cliquez sur les cartes)</p>
             
             <div class="cards-grid">
+                <!-- CARTE QUALITÉS -->
                 <div class="card" onclick="this.classList.toggle('is-flipped')">
                     <div class="card-inner">
                         <div class="card-front" style="border-bottom: 6px solid #6BD995;">Mes qualités</div>
@@ -141,6 +143,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- CARTE DÉFAUTS -->
                 <div class="card" onclick="this.classList.toggle('is-flipped')">
                     <div class="card-inner">
                         <div class="card-front" style="border-bottom: 6px solid #FF974F;">Mes défauts</div>
@@ -159,7 +162,8 @@
         <section>
             <div class="shape" style="width: 400px; height: 400px; background: var(--gradient-blue); bottom: -200px; right: -100px; opacity: 0.3;"></div>
             
-            <img src="photo2.jpg" alt="Manon Peluche" class="profile-pic" style="width: 180px; height: 180px;">
+            <!-- PHOTO UNIQUE PELUCHE -->
+            <img src="photo2.jpeg" alt="Manon Peluche" class="profile-pic" style="width: 180px; height: 180px;">
 
             <h1>Manon SCHIELIN</h1>
             
@@ -177,11 +181,9 @@
 
     <script>
         function nextSlide(index) {
-            // Déplacement du slider
             const slider = document.getElementById('mainSlider');
             slider.style.transform = 'translateX(-' + (index * 100) + 'vw)';
             
-            // Mise à jour des points de navigation
             document.querySelectorAll('.dot').forEach(function(dot) {
                 dot.classList.remove('active');
             });
